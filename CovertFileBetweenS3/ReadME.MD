@@ -1,42 +1,31 @@
-## this ReadME file is about to introduce how i convert the file from CSV to Json.
+# 📄 CSV to JSON Converter with AWS Lambda
 
-## Logic: 
-1: User or API upload the CSV file to S3
+This project demonstrates how to automatically convert a CSV file to JSON format using an AWS Lambda function, triggered by an S3 event.
 
-2: Source S3 bucket will notify the Lambda function
+---
 
-3: Lambda function change the file type to JSON
+## 🧠 Logic Overview
 
-4: Put the file to Destination S3 bucket.
+1. A **user or API** uploads a CSV file to the **source S3 bucket**.
+2. The **S3 event** triggers a **Lambda function**.
+3. The **Lambda function** reads the CSV, converts it to JSON.
+4. The function writes the resulting JSON file to a **destination S3 bucket**.
 
-## Step 1: 
-Create source and Destination bucket in S3
+---
 
-## Step 2： 
-Create Lambad function by using python code.
+## 🛠️ Step-by-Step Setup
 
-In the Lambad function Environment Variables : 
+### ✅ Step 1: Create S3 Buckets
 
-Add the Key DESTINATION_BUCKET = destination-bucket-lgzhang
+- Create a **source bucket** (e.g., `source-bucket-lgzhang`)
+- Create a **destination bucket** (e.g., `destination-bucket-lgzhang`)
 
-change the IAM rule for Lambda 
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
+---
 
-## Step 2: 
-GO to S3 bucket setting-> Property -> Event notification -> Add new rule, trigger Lambda function.
+### ✅ Step 2: Create the Lambda Function
 
-## Step 3:
-test, add the CSV file to Source bucket, you should see copy of file in destination bucket.
+- Language: **Python**
+- Attach the following **environment variable** to your Lambda:
+
+```env
+DESTINATION_BUCKET = destination-bucket-lgzhang
