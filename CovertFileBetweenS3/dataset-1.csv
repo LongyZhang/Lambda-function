@@ -1,0 +1,7 @@
+ProductID,ProductName,Category,Price,Stock
+1,Apple,Fruit,0.50,100
+2,Banana,Fruit,0.30,150
+3,Carrot,Vegetable,0.25,200
+4,Whole Milk,Dairy,1.50,50
+5,Bread,Grain,2.00,30
+6,Chicken,Meat,5.00,20
