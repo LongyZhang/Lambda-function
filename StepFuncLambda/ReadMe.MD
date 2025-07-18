@@ -55,4 +55,4 @@ This Step Functions workflow automates the processing of online orders. It inclu
 📥 Sample Output in email 
 New order received: Order ID 63a15c97-b839-4c23-9fdd-a70b4cecfea7 for ["apple","banana"] items at price of 72.0
 
-
+![Order Flow Diagram](./step_func.png)
