@@ -22,9 +22,8 @@ This repository documents my journey learning and practicing **AWS Lambda** func
 |------------|-----------------------------------------|-------------------------------------------------------------|
 | 2025-07-16 | Created hello world Lambda (Python)     | Used AWS Console to test inline; logged output to CloudWatch |
 | 2025-07-17 | S3 trigger with Lambda                  | Lambda triggered on file upload; Convert file from CSV to Json |
-| 2025-07-18 | API Gateway + Lambda integration        | Built REST endpoint using Lambda proxy integration           |
-| 2025-07-19 | Packaged Lambda with dependencies       | Used `pip install -t` and zipped manually                    |
-| 2025-07-20 | Used Terraform to deploy Lambda         | Deployed with IAM roles and logging enabled                 |
+| 2025-07-18 | Step function, SQS, SNS and Lambda      | Built simple Order system by using severless step function        |
+
 
 
 

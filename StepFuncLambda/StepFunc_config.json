@@ -1,0 +1,87 @@
+{
+  "Comment": "Online order processing workflow",
+  "StartAt": "GenerateOrderID",
+  "States": {
+    "GenerateOrderID": {
+      "Type": "Pass",
+      "Parameters": {
+        "orderId.$": "States.UUID()"
+      },
+      "ResultPath": "$.metadata",
+      "Next": "CheckCouponCode"
+    },
+    "CheckCouponCode": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "And": [
+            {
+              "Variable": "$.couponCode",
+              "IsPresent": true
+            },
+            {
+              "Variable": "$.couponCode",
+              "IsNull": false
+            }
+          ],
+          "Next": "ApplyDiscount"
+        }
+      ],
+      "Default": "Pass"
+    },
+    "Pass": {
+      "Type": "Pass",
+      "Next": "SQS SendMessage",
+      "Result": {
+        "Reasoning": "No coupon code was found"
+      },
+      "ResultPath": "$.OrderUpdates"
+    },
+    "SQS SendMessage": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage",
+      "Parameters": {
+        "MessageBody.$": "$",
+        "QueueUrl": "https://sqs.us-east-1.amazonaws.com/992382818826/OrderQueue"
+      },
+      "Next": "SendOrder",
+      "ResultPath": null
+    },
+    "ApplyDiscount": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:992382818826:function:ApplyDiscount:$LATEST",
+      "ResultPath": "$",
+      "Next": "SendOrder"
+    },
+    "SendOrder": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "ProcessOrderLambda",
+          "States": {
+            "ProcessOrderLambda": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:us-east-1:992382818826:function:ProcessOrder:$LATEST",
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "SNS Publish",
+          "States": {
+            "SNS Publish": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "Message.$": "States.Format('New order received: Order ID {} for {} items at price of {}', $.metadata.orderId, $.items, $.price)",
+                "TopicArn": "arn:aws:sns:us-east-1:992382818826:OrderTopic"
+              },
+              "End": true
+            }
+          }
+        }
+      ],
+      "End": true
+    }
+  }
+}
