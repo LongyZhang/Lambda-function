@@ -56,6 +56,10 @@ This Step Functions workflow automates the processing of online orders. It inclu
 New order received: Order ID 63a15c97-b839-4c23-9fdd-a70b4cecfea7 for ["apple","banana"] items at a price of 72.0
 
 
+
+---
+
+
 ## 📐 Architecture Diagram
 
 ![Architecture Diagram](https://github.com/LongyZhang/Lambda-function/blob/main/architecture.png)
