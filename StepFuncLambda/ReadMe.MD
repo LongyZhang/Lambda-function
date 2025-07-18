@@ -4,6 +4,12 @@ This Step Functions workflow automates the processing of online orders. It inclu
 
 ---
 
+## 📐 Architecture Diagram
+
+![Architecture Diagram](https://github.com/LongyZhang/Lambda-function/blob/0b0ac3cd8b02254ec9dede481561d7bed10cd89e/step_func.png)
+
+---
+
 ## 🧩 Components Used
 
 - **Step Functions**: Orchestration of the entire workflow
@@ -55,11 +61,3 @@ This Step Functions workflow automates the processing of online orders. It inclu
 📥 Sample Output in email 
 New order received: Order ID 63a15c97-b839-4c23-9fdd-a70b4cecfea7 for ["apple","banana"] items at a price of 72.0
 
-
-
----
-
-
-## 📐 Architecture Diagram
-
-![Architecture Diagram](https://github.com/LongyZhang/Lambda-function/blob/main/architecture.png)
